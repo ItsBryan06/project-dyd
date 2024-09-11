@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de Personajes D&D</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-dragon"></i> Campaign: Ebonhold</h1>
+        <form id="characterForm">
+            <div class="form-group">
+                <label for="characterName"><i class="fas fa-user"></i> Nombre del Personaje:</label>
+                <input type="text" id="characterName" name="characterName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="characterDescription"><i class="fas fa-book-open"></i> Descripción del Personaje:</label>
+                <textarea id="characterDescription" name="characterDescription" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="faction"><i class="fas fa-flag"></i> Facción:</label>
+                <select id="faction" name="faction">
+                    <option value="None">Ninguna</option>
+                    <option value="Faction1">Facción 1</option>
+                    <option value="Faction2">Facción 2</option>
+                    <option value="Faction3">Facción 3</option>
+                </select>
+            </div>
+
+            <fieldset>
+                <legend><i class="fas fa-dumbbell"></i> Atributos (Puntos Totales: <span id="totalPoints">20</span>)</legend>
+                <div class="attribute">
+                    <label for="CON"><i class="fas fa-heart"></i> Constitución (CON):</label>
+                    <input type="number" id="CON" name="CON" min="1" max="20" value="1" required>
+                </div>
+                <div class="attribute">
+                    <label for="INT"><i class="fas fa-brain"></i> Inteligencia (INT):</label>
+                    <input type="number" id="INT" name="INT" min="1" max="20" value="1" required>
+                </div>
+                <div class="attribute">
+                    <label for="WIS"><i class="fas fa-lightbulb"></i> Sabiduría (WIS):</label>
+                    <input type="number" id="WIS" name="WIS" min="1" max="20" value="1" required>
+                </div>
+                <div class="attribute">
+                    <label for="CHA"><i class="fas fa-comment"></i> Carisma (CHA):</label>
+                    <input type="number" id="CHA" name="CHA" min="1" max="20" value="1" required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend><i class="fas fa-lock"></i> Atributos No Modificables</legend>
+                <div class="attribute non-modifiable">
+                    <label for="INTG"><i class="fas fa-balance-scale"></i> Integridad (INTG):</label>
+                    <span id="INTG">0</span>
+                </div>
+                <div class="attribute non-modifiable">
+                    <label for="EMP"><i class="fas fa-hand-holding-heart"></i> Empatía (EMP):</label>
+                    <span id="EMP">0</span>
+                </div>
+            </fieldset>
+
+            <div class="button-container">
+                <button type="submit" id="submitButton"><i class="fas fa-save"></i> Crear Personaje</button>
+                <a href="character-list.html" class="circular-btn" aria-label="Lista de Personajes">
+                    <i class="fas fa-list"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

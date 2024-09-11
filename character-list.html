@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Personajes D&D</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-list"></i> Lista de Personajes D&D</h1>
+        <div id="characterList" class="character-grid"></div>
+        <a href="index.html" class="button create-character-btn"><i class="fas fa-plus"></i> Crear Nuevo Personaje</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const characterList = document.getElementById('characterList');
+            let characters = JSON.parse(localStorage.getItem('characters')) || [];
+
+            function renderCharacters() {
+                characterList.innerHTML = '';
+                characters.forEach((character, index) => {
+                    const characterCard = document.createElement('div');
+                    characterCard.className = 'character-card';
+                    characterCard.innerHTML = `
+                        <h2>${character.name}</h2>
+                        <p><strong>Facción:</strong> ${character.faction}</p>
+                        <p><strong>Descripción:</strong> ${character.description.substring(0, 50)}${character.description.length > 50 ? '...' : ''}</p>
+                        <div class="attributes">
+                            <p><strong>Atributos:</strong></p>
+                            <ul>
+                                <li><i class="fas fa-heart"></i> CON: ${character.attributes.CON}</li>
+                                <li><i class="fas fa-brain"></i> INT: ${character.attributes.INT}</li>
+                                <li><i class="fas fa-lightbulb"></i> WIS: ${character.attributes.WIS}</li>
+                                <li><i class="fas fa-comment"></i> CHA: ${character.attributes.CHA}</li>
+                                <li><i class="fas fa-balance-scale"></i> INTG: ${character.attributes.INTG}</li>
+                                <li><i class="fas fa-hand-holding-heart"></i> EMP: ${character.attributes.EMP}</li>
+                            </ul>
+                        </div>
+                        <div class="card-actions">
+                            <button class="modify-btn" data-index="${index}"><i class="fas fa-edit"></i></button>
+                            <button class="delete-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    characterList.appendChild(characterCard);
+                });
+
+                document.querySelectorAll('.modify-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = parseInt(e.target.closest('.modify-btn').dataset.index);
+                        const password = prompt('Ingrese la contraseña para modificar:');
+                        if (password === 'hollowraven') {
+                            window.location.href = `index.html?edit=${index}`;
+                        } else {
+                            alert('Contraseña incorrecta');
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = parseInt(e.target.closest('.delete-btn').dataset.index);
+                        if (confirm('¿Estás seguro de que quieres eliminar este personaje?')) {
+                            characters.splice(index, 1);
+                            localStorage.setItem('characters', JSON.stringify(characters));
+                            renderCharacters();
+                        }
+                    });
+                });
+            }
+
+            renderCharacters();
+        });
+    </script>
+</body>
+</html>
